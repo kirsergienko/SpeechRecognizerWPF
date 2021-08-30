@@ -147,8 +147,14 @@
                 </StackPanel>
                 <StackPanel Grid.Column="1">
                     <CheckBox x:Name="fromMicrophone" Content="From microphone" Grid.Column="1" Grid.Row="0" Margin="10,23,10,10" Checked="fromMicrophone_Checked"/>
+                    <CheckBox x:Name="readyPhrases" Content="Show ready-made phrases" Margin="10,0,0,0" Checked="CheckBox_Checked"></CheckBox>
+                    <CheckBox x:Name="onAllWindows" Content="Show subtitles on all windows" Margin="10,10,0,0" Checked="onAllWindows_Checked"></CheckBox>
                 </StackPanel>
-                <Button x:Name="applyButton" Content="Apply" Grid.Column="1" Grid.Row="1" Margin="35" RenderTransformOrigin="0.532,-0.238" Click="applyButton_Click"/>
+                <StackPanel Grid.Row="1" Grid.Column="1">
+                    <Label ContentStringFormat="Opacity: {0:F2}" Content="{Binding Value, ElementName=opacitySlider}"></Label>
+                    <Slider x:Name="opacitySlider" Minimum="0" Maximum="1" ValueChanged="opacitySlider_ValueChanged"></Slider>
+                    <Button x:Name="applyButton" Content="Apply" Margin="40,10,40,10" RenderTransformOrigin="0.532,-0.238" Click="applyButton_Click"/>
+                </StackPanel>
 
                 <StackPanel Grid.Row="2">
                     <Label Margin="10,10,0,0">Window</Label>

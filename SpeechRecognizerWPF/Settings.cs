@@ -29,6 +29,15 @@ namespace SpeechRecognizerWPF
         [DataMember]
         public int FontSize { get; set; }
 
+        [DataMember]
+        public double Opactiy { get; set; }
+
+        [DataMember]
+        public bool OnAllWindows { get; set; }
+
+        [DataMember]
+        public bool ReadyPhrases { get; set; }
+
         public void Save()
         {
             var json = new DataContractJsonSerializer(typeof(Settings));

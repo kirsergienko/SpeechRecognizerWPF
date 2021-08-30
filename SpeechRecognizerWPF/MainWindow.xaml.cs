@@ -38,7 +38,6 @@ namespace SpeechRecognizerWPF
 
             SetProcesss();
 
-
             try
             {
                 var userSettings = settings.Load();
@@ -51,6 +50,10 @@ namespace SpeechRecognizerWPF
 
                 settings.FontSize = userSettings.FontSize;
 
+                settings.FromMicrophone = userSettings.FromMicrophone;
+
+                settings.ReadyPhrases = userSettings.FromMicrophone;
+
                 inputCombox.SelectedValue = userSettings.InputLanguageName;
 
                 outputCombox.SelectedValue = userSettings.OutputLanguageName;
@@ -60,6 +63,16 @@ namespace SpeechRecognizerWPF
                 fontSizeComboBox.SelectedValue = settings.FontSize;
 
                 fromMicrophone.IsChecked = userSettings.FromMicrophone;
+
+                readyPhrases.IsChecked = userSettings.ReadyPhrases;
+
+                settings.Opactiy = userSettings.Opactiy;
+
+                opacitySlider.Value = settings.Opactiy;
+
+                settings.OnAllWindows = userSettings.OnAllWindows;
+
+                onAllWindows.IsChecked = userSettings.OnAllWindows;
             }
             catch (Exception ex)
             {
@@ -84,6 +97,7 @@ namespace SpeechRecognizerWPF
                 colorComboBox.SelectedValue = settings.Color;
 
                 fontSizeComboBox.SelectedValue = settings.FontSize;
+
             }
         }
 
@@ -171,44 +185,73 @@ namespace SpeechRecognizerWPF
 
         private async Task FromDevice(SpeechConfig speechConfig, AudioConfig audioConfig)
         {
+            subtitles.textBox1.FontSize = settings.FontSize;
+
+            subtitles.textBox1.Foreground = SetColor(settings.Color);
+
             using (audioConfig)
             {
                 using var recognizer = new SpeechRecognizer(speechConfig, settings.InputLanguage, audioConfig);
 
-                recognizer.Recognizing += async (o, e) =>
+                if (settings.ReadyPhrases)
                 {
-                    Action action = new Action(async () =>
+                    recognizer.Recognized += async (o, e) =>
                     {
+                        string res = await Translator.Translate(Resultator.GetResult(e), settings.OutputLanguage);
+                        if (!String.IsNullOrWhiteSpace(res))
+                        {
+                            Action action = new Action(() =>
+                            {
+                                subtitles.textBox1.Text = res;
+                                history.Add(res);
 
-                        subtitles.textBox1.FontSize = settings.FontSize;
+                            });
 
-                        subtitles.textBox1.Foreground = SetColor(settings.Color);
+                            await subtitles.Dispatcher.BeginInvoke(action);
+                        }
+                    };
+                    await recognizer.StartContinuousRecognitionAsync();
 
-                        subtitles.textBox1.Text = await Translator.Translate(Resultator.GetResult(e), settings.OutputLanguage);
-
-                    });
-
-                    await subtitles.Dispatcher.BeginInvoke(action);
-
-                };
-
-                recognizer.Recognized += async (o, e) =>
-                {
-                    string res = await Translator.Translate(Resultator.GetResult(e), settings.OutputLanguage);
-                    if (!String.IsNullOrWhiteSpace(res))
+                    while (check)
                     {
-                        history.Add(res);
+                        await Task.Delay(1000);
                     }
-                };
 
-                await recognizer.StartContinuousRecognitionAsync();
+                    await recognizer.StopContinuousRecognitionAsync();
 
-                while (check)
-                {
-                    await Task.Delay(1000);
                 }
+                else
+                {
+                    recognizer.Recognizing += async (o, e) =>
+                    {
+                        Action action = new Action(async () =>
+                        {
+                            subtitles.textBox1.Text = await Translator.Translate(Resultator.GetResult(e), settings.OutputLanguage);
 
-                await recognizer.StopContinuousRecognitionAsync();
+                        });
+
+                        await subtitles.Dispatcher.BeginInvoke(action);
+
+                    };
+
+                    recognizer.Recognized += async (o, e) =>
+                    {
+                        string res = await Translator.Translate(Resultator.GetResult(e), settings.OutputLanguage);
+                        if (!String.IsNullOrWhiteSpace(res))
+                        {
+                            history.Add(res);
+                        }
+                    };
+
+                    await recognizer.StartContinuousRecognitionAsync();
+
+                    while (check)
+                    {
+                        await Task.Delay(1000);
+                    }
+
+                    await recognizer.StopContinuousRecognitionAsync();
+                }
             }
 
         }
@@ -337,7 +380,10 @@ namespace SpeechRecognizerWPF
 
                 startButton.Content = "Start";
 
-                activeWindow.ActiveWindowChanged -= ActiveWindow_ActiveWindowChanged;
+                if (!settings.OnAllWindows)
+                {
+                    activeWindow.ActiveWindowChanged -= ActiveWindow_ActiveWindowChanged;
+                }
             }
             else
             {
@@ -348,6 +394,8 @@ namespace SpeechRecognizerWPF
                 startButton.Content = "Stop";
 
                 subtitles.textBox1.IsReadOnly = true;
+
+                subtitles.textBox1.Background = new SolidColorBrush() { Color = Colors.White, Opacity = settings.Opactiy };
 
                 subtitles.textBox1.TextWrapping = TextWrapping.Wrap;
 
@@ -363,15 +411,20 @@ namespace SpeechRecognizerWPF
 
                 subtitles.Left = width / 4;
 
-                activeWindow.ActiveWindowChanged += ActiveWindow_ActiveWindowChanged;
+                if (settings.OnAllWindows)
+                {
+                    subtitles.Show();
+                }
+                else
+                {
+                    activeWindow.ActiveWindowChanged += ActiveWindow_ActiveWindowChanged;
+                }
 
                 Start();
 
             }
 
         }
-
-
 
         private void applyButton_Click(object sender, RoutedEventArgs e)
         {
@@ -389,7 +442,13 @@ namespace SpeechRecognizerWPF
 
             settings.Color = colorComboBox.Text;
 
+            settings.ReadyPhrases = (bool)readyPhrases.IsChecked;
+
             applyButton.IsEnabled = false;
+
+            settings.Opactiy = opacitySlider.Value;
+
+            settings.OnAllWindows = (bool) onAllWindows.IsChecked;
 
             settings.Save();
         }
@@ -422,6 +481,21 @@ namespace SpeechRecognizerWPF
         }
 
         private void fontSizeComboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            applyButton.IsEnabled = true;
+        }
+
+        private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            applyButton.IsEnabled = true;
+        }
+
+        private void opacitySlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            applyButton.IsEnabled = true;
+        }
+
+        private void onAllWindows_Checked(object sender, RoutedEventArgs e)
         {
             applyButton.IsEnabled = true;
         }
