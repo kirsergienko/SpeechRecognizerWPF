@@ -1,0 +1,183 @@
+﻿<Window x:Class="SpeechRecognizerWPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SpeechRecognizerWPF"
+        mc:Ignorable="d"
+        Title="MainWindow"  
+        Width="400" Height="350">
+
+    <TabControl x:Name="tabControl" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+        <TabItem Header="Main">
+            <Grid Margin="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" MinWidth="140"/>
+
+                    <ColumnDefinition Width="*" MinWidth="140"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" MinHeight="100"/>
+                    <RowDefinition Height="*" MinHeight="110"/>
+                    <RowDefinition Height="*" MinHeight="110"/>
+                </Grid.RowDefinitions>
+
+                <Rectangle Fill="Gray" Grid.Column="0" Grid.Row="0"></Rectangle>
+                <Rectangle Fill="Gray" Grid.Column="0" Grid.Row="1"></Rectangle>
+                <Rectangle Fill="Gray" Grid.Column="1" Grid.Row="0"></Rectangle>
+                <Rectangle Fill="Gray" Grid.Column="1" Grid.Row="1"></Rectangle>
+
+                <StackPanel>
+                    <Label>Input Languge</Label>
+                    <ComboBox x:Name="inputCombox" Grid.Column="0" Grid.Row="0" Margin="10,0,10,0" SelectedValuePath="Content" RenderTransformOrigin="0.5,0.5" SelectionChanged="inputCombox_SelectionChanged">
+                        <ComboBoxItem Content="English"/>
+                        <ComboBoxItem Content="Russian"/>
+                        <ComboBoxItem Content="Bulgarian"/>
+                        <ComboBoxItem Content="Catalan"/>
+                        <ComboBoxItem Content="Chinese Simplified"/>
+                        <ComboBoxItem Content="Chinese Traditional"/>
+                        <ComboBoxItem Content="Croatian"/>
+                        <ComboBoxItem Content="Czech"/>
+                        <ComboBoxItem Content="Danish"/>
+                        <ComboBoxItem Content="Dutch"/>
+                        <ComboBoxItem Content="Estonian"/>
+                        <ComboBoxItem Content="Finnish"/>
+                        <ComboBoxItem Content="French"/>
+                        <ComboBoxItem Content="German"/>
+                        <ComboBoxItem Content="Greek"/>
+                        <ComboBoxItem Content="Gujarati"/>
+                        <ComboBoxItem Content="Hebrew"/>
+                        <ComboBoxItem Content="Hindi"/>
+                        <ComboBoxItem Content="Hungarian"/>
+                        <ComboBoxItem Content="Indonesian"/>
+                        <ComboBoxItem Content="Irish"/>
+                        <ComboBoxItem Content="Italian"/>
+                        <ComboBoxItem Content="Japanese"/>
+                        <ComboBoxItem Content="Korean"/>
+                        <ComboBoxItem Content="Latvian"/>
+                        <ComboBoxItem Content="Lithuania"/>
+                        <ComboBoxItem Content="Malay"/>
+                        <ComboBoxItem Content="Maltese"/>
+                        <ComboBoxItem Content="Norwegain"/>
+                        <ComboBoxItem Content="Polish"/>
+                        <ComboBoxItem Content="Portuguese(Brazil)"/>
+                        <ComboBoxItem Content="Portuguese(Portugal)"/>
+                        <ComboBoxItem Content="Romanian"/>
+                        <ComboBoxItem Content="Slovak"/>
+                        <ComboBoxItem Content="Slovenian"/>
+                        <ComboBoxItem Content="Spanish"/>
+                        <ComboBoxItem Content="Swedish"/>
+                        <ComboBoxItem Content="Thai"/>
+                        <ComboBoxItem Content="Turkish"/>
+                        <ComboBoxItem Content="Vietnamese"/>
+                    </ComboBox>
+                    <Label>Output Languge</Label>
+                    <ComboBox x:Name="outputCombox" Grid.Column="0" Grid.Row="0" Margin="10,0,10,0" SelectedValuePath="Content" SelectionChanged="outputCombox_SelectionChanged">
+                        <ComboBoxItem Content="English"/>
+                        <ComboBoxItem Content="Russian"/>
+                        <ComboBoxItem Content="Bulgarian"/>
+                        <ComboBoxItem Content="Catalan"/>
+                        <ComboBoxItem Content="Chinese Simplified"/>
+                        <ComboBoxItem Content="Chinese Traditional"/>
+                        <ComboBoxItem Content="Croatian"/>
+                        <ComboBoxItem Content="Czech"/>
+                        <ComboBoxItem Content="Danish"/>
+                        <ComboBoxItem Content="Dutch"/>
+                        <ComboBoxItem Content="Estonian"/>
+                        <ComboBoxItem Content="Finnish"/>
+                        <ComboBoxItem Content="French"/>
+                        <ComboBoxItem Content="German"/>
+                        <ComboBoxItem Content="Greek"/>
+                        <ComboBoxItem Content="Gujarati"/>
+                        <ComboBoxItem Content="Hebrew"/>
+                        <ComboBoxItem Content="Hindi"/>
+                        <ComboBoxItem Content="Hungarian"/>
+                        <ComboBoxItem Content="Indonesian"/>
+                        <ComboBoxItem Content="Irish"/>
+                        <ComboBoxItem Content="Italian"/>
+                        <ComboBoxItem Content="Japanese"/>
+                        <ComboBoxItem Content="Korean"/>
+                        <ComboBoxItem Content="Latvian"/>
+                        <ComboBoxItem Content="Lithuania"/>
+                        <ComboBoxItem Content="Malay"/>
+                        <ComboBoxItem Content="Maltese"/>
+                        <ComboBoxItem Content="Norwegain"/>
+                        <ComboBoxItem Content="Polish"/>
+                        <ComboBoxItem Content="Portuguese(Brazil)"/>
+                        <ComboBoxItem Content="Portuguese(Portugal)"/>
+                        <ComboBoxItem Content="Romanian"/>
+                        <ComboBoxItem Content="Slovak"/>
+                        <ComboBoxItem Content="Slovenian"/>
+                        <ComboBoxItem Content="Spanish"/>
+                        <ComboBoxItem Content="Swedish"/>
+                        <ComboBoxItem Content="Thai"/>
+                        <ComboBoxItem Content="Turkish"/>
+                        <ComboBoxItem Content="Vietnamese"/>
+                    </ComboBox>
+                </StackPanel>
+                <StackPanel Grid.Row="1">
+                    <Label>Color</Label>
+                    <ComboBox x:Name="colorComboBox" SelectedValuePath="Content" SelectionChanged="colorComboBox_SelectionChanged" Margin="10,0,10,0">
+                        <ComboBoxItem>White</ComboBoxItem>
+                        <ComboBoxItem>Black</ComboBoxItem>
+                        <ComboBoxItem>Green</ComboBoxItem>
+                        <ComboBoxItem>Red</ComboBoxItem>
+                        <ComboBoxItem>Blue</ComboBoxItem>
+                        <ComboBoxItem>Purple</ComboBoxItem>
+                        <ComboBoxItem>Orange</ComboBoxItem>
+                    </ComboBox>
+                    <Label>FontSize</Label>
+                    <ComboBox x:Name="fontSizeComboBox" SelectedValuePath="Content" SelectionChanged="fontSizeComboBox_SelectionChanged" Margin="10,0,10,0">
+                        <ComboBoxItem>6</ComboBoxItem>
+                        <ComboBoxItem>7</ComboBoxItem>
+                        <ComboBoxItem>8</ComboBoxItem>
+                        <ComboBoxItem>9</ComboBoxItem>
+                        <ComboBoxItem>10</ComboBoxItem>
+                        <ComboBoxItem>12</ComboBoxItem>
+                        <ComboBoxItem>14</ComboBoxItem>
+                        <ComboBoxItem>16</ComboBoxItem>
+                        <ComboBoxItem>18</ComboBoxItem>
+                        <ComboBoxItem>20</ComboBoxItem>
+                        <ComboBoxItem>22</ComboBoxItem>
+                        <ComboBoxItem>24</ComboBoxItem>
+                        <ComboBoxItem>36</ComboBoxItem>
+                        <ComboBoxItem>48</ComboBoxItem>
+                        <ComboBoxItem>72</ComboBoxItem>
+                    </ComboBox>
+                </StackPanel>
+                <StackPanel Grid.Column="1">
+                    <CheckBox x:Name="fromMicrophone" Content="From microphone" Grid.Column="1" Grid.Row="0" Margin="10,23,10,10" Checked="fromMicrophone_Checked"/>
+                </StackPanel>
+                <Button x:Name="applyButton" Content="Apply" Grid.Column="1" Grid.Row="1" Margin="35" RenderTransformOrigin="0.532,-0.238" Click="applyButton_Click"/>
+
+                <StackPanel Grid.Row="2">
+                    <Label Margin="10,10,0,0">Window</Label>
+                    <ComboBox x:Name="windowComboBox" Margin="10,0,20,10" SelectedValuePath="Content">
+
+                    </ComboBox>
+                </StackPanel>
+             
+                <StackPanel Grid.Row="2" Grid.Column="1">
+                    <Button x:Name="startButton" Content="Start" Grid.Column="0" Grid.Row="2" Margin="20, 15, 20, 0" Click="startButton_Click"></Button>
+                    <Button x:Name="historyButton" Content="History" Grid.Column="1" Grid.Row="2" Margin="20, 10, 20, 10" Click="historyButton_Click"/>
+                </StackPanel>
+            </Grid>
+        </TabItem>
+        <TabItem Header="Instructions">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="190*"/>
+                    <RowDefinition Height="91*"/>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Content="To use this program you need: &#xD;&#xA;1. Download VB-CABLE Virtual Audio Device; &#xD;&#xA;2. Enable CABLE Input and CABLE Output in Windows sound settings:&#xD;&#xA;- Go to: Sounds - Recording - Choose &quot;CABLE Output&quot;'s Proporties; &#xD;&#xA;then go to: Listen - Choose your speakers in &quot;Payback through &#xD;&#xA;this device:&quot;; &#xD;&#xA;- Enable &quot;Listen to this device&quot;; &#xD;&#xA;- Go to: Payback - CABLE Input set as default device &#xD;&#xA;3. Select the language of recognition and translation in the settings &#xD;&#xA;(automatically from English to Russian)." />
+                <Label Grid.Row="1">Link to the official VB-CABLE site:</Label>
+                <Label Grid.Row="1" Margin="179,0,45,64">
+                    <Hyperlink NavigateUri="https://vb-audio.com/Cable/">
+                        https://vb-audio.com/Cable/
+                    </Hyperlink>
+                </Label>
+            </Grid>
+        </TabItem>
+
+    </TabControl>
+</Window>

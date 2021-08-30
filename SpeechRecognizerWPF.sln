@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30517.126
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpeechRecognizerWPF", "SpeechRecognizerWPF\SpeechRecognizerWPF.csproj", "{DE53F772-9A33-49D7-9F57-985567292D53}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DE53F772-9A33-49D7-9F57-985567292D53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE53F772-9A33-49D7-9F57-985567292D53}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE53F772-9A33-49D7-9F57-985567292D53}.Debug|x64.ActiveCfg = Debug|x64
+		{DE53F772-9A33-49D7-9F57-985567292D53}.Debug|x64.Build.0 = Debug|x64
+		{DE53F772-9A33-49D7-9F57-985567292D53}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE53F772-9A33-49D7-9F57-985567292D53}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE53F772-9A33-49D7-9F57-985567292D53}.Release|x64.ActiveCfg = Release|x64
+		{DE53F772-9A33-49D7-9F57-985567292D53}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BE64E116-3E9B-49D2-827F-6D7CC527A8E3}
+	EndGlobalSection
+EndGlobal
