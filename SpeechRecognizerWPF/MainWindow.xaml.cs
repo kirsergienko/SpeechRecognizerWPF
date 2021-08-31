@@ -154,7 +154,7 @@ namespace SpeechRecognizerWPF
         private async Task Start()
         {
             ProfanityOption profanityOption = ProfanityOption.Raw;
-            var speechConfig = SpeechConfig.FromSubscription("52304639cdad40e28580855cc618857a", "eastus");
+            var speechConfig = SpeechConfig.FromSubscription("secret key", "eastus");
             speechConfig.SetProfanity(profanityOption);
             string deviceID = "";
 
