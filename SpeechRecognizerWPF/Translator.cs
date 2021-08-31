@@ -7,7 +7,7 @@ namespace SpeechRecognizerWPF
 {
     class Translator
     {
-        private const string Key = "433770b2539d47718585deff9642867d";
+        private const string Key = ;
 
         private static readonly HttpClient client = new HttpClient
         {
